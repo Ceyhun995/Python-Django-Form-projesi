@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block icerik %}
+<div class="container">
+  <div class="container">
+    <p>Form Detay Sayfası</p>
+    <div class="card">
+      <h5 class="card-title  text-center">{{form.title}}</h5>
+
+      <div class="card-body w-25 h-25 text-center ">
+
+        <img class="card-img-top img-fluid" src="{{form.image.url}}" alt="Card image cap">
+        <a href="{% url 'ekle' %}" > <</button>
+        </a>
+      </div>
+      <p class="card-text">{{form.content}}</p>
+    </div>
+
+  </div>
+</div>
+{% endblock icerik %}

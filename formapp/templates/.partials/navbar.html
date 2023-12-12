@@ -1,0 +1,77 @@
+{% load static %}
+
+<div class="container">
+  <nav class="navbar navbar-expand-lg" id="navcontent">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">e-Form</a>
+      <!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>-->
+
+      {% if request.user.is_authenticated %}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+        <div class="container">
+          <div class="mb-3">
+            <form class="d-flex mx-5" role="search" action="/" method="get">
+              <input class="form-control" name="searchbtn" type="search" placeholder="Ara!" aria-label="Ara">
+              <button class="btn btn-outline-success" type="submit">Ara</button>
+            </form>
+          </div>
+        </div>
+
+        <ul id="dropDown" style="list-style-type: none;">
+          <li class="nav-item dropdown" style="margin-right: 30px;">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{request.user.username}}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'profil' user.id %}">Kullanıcı Ayarları</a></li>
+              {% if request.user.is_superuser %}
+
+              <li><a class="dropdown-item" href="/admin">Admin Panel</a></li>
+              <li><a class="dropdown-item" href="{% url 'superpanel' %}">Super Panel</a></li>
+
+              {% endif %}
+              <li><a class="dropdown-item" href="{% url 'forms' %}">Formlarım</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li><a class="dropdown-item" href="{% url 'exit' %}">Çıkış</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      {% else %}
+
+      <div class="links d-flex">
+
+        <li class="nav-item" style="list-style-type: none; ">
+          <a class="nav-link " href="{% url 'giris' %}">Giriş Yap</a>
+        </li>
+        <li class="nav-item" style="list-style-type: none;margin-left: 30px;">
+          <a class="nav-link" href="{% url 'register'  %}">Kayıt Ol</a>
+        </li>
+
+      </div>
+
+
+      {% endif %}
+
+
+
+
+    </div>
+  </nav>
+</div>

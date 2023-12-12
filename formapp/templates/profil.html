@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+Kullanıcı Ayarları
+{% endblock title %}
+
+{% block icerik %}
+
+<!--First Edit Modal Start-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'profil' user.id %}" method="post">
+                    {% csrf_token %}
+                    {{form}}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Secont Edit Modal Start-->
+<div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'profil' user.id %}" method="post">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <input type="mail"  name="mail" value="{{user.email}}" placeholder="E-mail adresi">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password"  name="oldpassword" placeholder="Eski Şifreniz">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password"  name="newpassword" placeholder="Yeni Şifreniz">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password"  name="newpassword2" placeholder="Yeni Şifreniz Tekrar">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-primary">Güncelle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+<!--Banned Modal-->
+
+<div class="modal fade" id="banModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'profil' user.id %}" method="post">
+
+                    {% csrf_token %}
+
+                    {{banneduser}}
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                        <button type="submit" class="btn btn-primary">Banla</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Banned Modal End-->
+
+
+<!--Container-->
+<div class="container">
+
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+
+    <h4>Kişisel Veriler</h4>
+
+    {% if request.user.id == user.id or request.user.is_superuser %}
+
+    <small data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger float-end">Düzenle</small>
+    <ul class="mt-3" style="list-style-type: none;">
+        <li>
+            <p>Kullanıcı Adı: {{user.username}}</p>
+        </li>
+        <li>
+            {% if request.user.first_name %}
+            <p>Adı: {{request.user.first_name}}</p>
+            {% else %}
+            <p>Adı: Belirtilmedi</p>
+            {% endif %}
+
+        </li>
+        <li>
+            {% if request.user.last_name %}
+            <p>Soyadı: {{request.user.last_name}}</p>
+            {% else %}
+            <p>Soyadı: Belirtilmedi</p>
+            {% endif %}
+        </li>
+
+        {% if request.user.is_superuser %}
+        <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#banModal">
+            <p>Hesabı Banla</p>
+        </a>
+        {% endif %}
+
+
+    </ul>
+
+    <hr>
+    <h4>Hesap Ayarları</h4>
+    <small data-bs-toggle="modal" data-bs-target="#exampleModalEdit" class="editProfile1 btn btn-danger float-end"
+        id="submitButton">Düzenle</small>
+    <ul class="mb-3" style="list-style-type: none;">
+        <li>
+            {% if request.user.email %}
+            <p id="e_mail">E-posta: {{user.email}}</p>
+            {% else %}
+            <p>E-posta: Belirtilmedi</p>
+            {% endif %}
+
+        </li>
+        <li>
+            <p>Şifreniz : ******</p>
+        </li>
+    </ul>
+    {% endif %}
+
+
+
+    <script>
+        document.getElementById('submitButton').addEventListener('click', () => {
+            let button = getElementById('e_mail')
+
+            if (button.value == "") {
+                alert('Boş Burakılamaz')
+            } else {
+
+            }
+        })
+    </script>
+</div>
+
+<script src="{% static 'script/classAddHandle.js' %}"></script>
+{% endblock icerik %}

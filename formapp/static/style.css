@@ -1,0 +1,67 @@
+.form-content{
+    width: 500px;
+}
+
+.links{
+    display: flex;
+}
+.forms{
+    width: 500px;
+}
+
+/*profil sayfası*/
+.editProfile{
+    float: right;
+    padding: 4px;
+    cursor: pointer;
+    background-color: antiquewhite;
+    border: 1px solid black;
+}
+
+/*
+.editProfile1{
+    float: right;
+    padding: 4px;
+    cursor: pointer;
+    background-color: antiquewhite;
+    border: 1px solid black;
+}
+*/
+
+.helptext{
+    display: none;
+}   
+
+form{
+    padding: 0;
+    margin: 0;
+}
+
+#navcontent{
+    background-color: black;
+    color: white;
+}
+
+#navcontent a{
+    color: white;
+}
+
+
+
+#dropDown{
+    background-color: black;
+}
+
+#dropDown a{
+    color: white;
+}
+
+
+#dropDown a:hover{
+    color: gray;
+}
+
+.dropdown-menu{
+    background-color: black;
+}
+

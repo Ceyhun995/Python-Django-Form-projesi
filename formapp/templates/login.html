@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block icerik %}
+  <div class="container">
+    <div class="form-content">
+        <form action="{% url 'giris' %}" method="post" >
+
+          {% csrf_token %}
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Kullanıcı Adınız</label>
+              <input type="text" name="username" class="form-control" id="exampleInputEmail1" >
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Şifreniz</label>
+              <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
+            </div>
+            <div class="mp-3">
+                <small>
+                    <p>Hesabın Yok Mu ? <a href="{% url 'register' %}">Kayıt ol</a></p>
+                </small>
+            </div>
+            {% for message in messages %}
+              {{message}}
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Giriş Yap</button>
+          </form>
+    </div>
+  </div>
+{% endblock icerik %}

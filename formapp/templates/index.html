@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}
+Anasayfa
+{% endblock title %}
+
+{% block icerik %}
+<div class="container">
+
+
+  {% if request.user.is_authenticated %}
+  <!--Modal start-->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Form Ekle </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'ekle' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+              <input type="text" name="title" placeholder="Form Başlığı">
+            </div>
+            <div class="mb-3">
+              <textarea name="content" placeholder="Form İçeriği"></textarea>
+            </div>
+            <div class="mb-3">
+              <input type="file" name="image">
+            </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
+              <button type="submit" class="btn btn-info">Ekle</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--Modal End-->
+  <h4>Eklenen Formlar</h4>
+  <div class="formekle d-flex justify-content-end mx-2">
+    <p class="mx-2"></p>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
+  </div>
+  <ul style="list-style-type: none;">
+    {% for form in Not %}
+    <br> <br>
+    <li>Başlık: {{form.title}}</li>
+    <li>Post <a href="{% url 'profil' user.id %}">{{form.author}}</a>, tarafından</li>
+    <li>{{form.date}} tarihinde oluşturuldu</li>
+    <li><a href="{% url 'detay' form.id %}">Detaylı...</a></li>
+    {% if request.user.id == form.author.id or request.user.is_superuser %}
+    <a href="{% url 'delete' form.id %}" onclick="del(event,'{{form.id}}')" class="text-danger">Sil</a>
+    <a href="{% url 'update' form.id %}" class="text-warning">Güncelle</a>
+    {% endif %}
+
+
+    {% empty %}
+    <p>Her Hangi Birşey Bulunamadı</p>
+    {% endfor %}
+  </ul>
+
+
+  <script>
+    let del = (e, formid) => {
+
+      event.preventDefault()
+
+      let con = confirm('Bu formu silmek istediğinizden emin misiniz?');
+
+      if (con) {
+        //console.log('Silmek istediğiniz formun ID\'si: ' + formid);
+        window.location.href = `detail/delete/${formid} `
+        alert('silme başarılı')
+      }
+    }
+  </script>
+
+</div>
+
+
+
+
+
+{% else %}
+<p>Formlara Ulaşmak İçin <a href="{% url 'giris' %}">Giriş</a> Yapın</p>
+
+
+
+{% endif %}
+</div>
+
+
+
+
+{% endblock icerik %}

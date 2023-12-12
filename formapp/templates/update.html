@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block icerik %}
+  
+
+<div class="container" style="width: 70%; margin: auto;">
+    <h5>Güncelle sayfası</h5>
+   <div class="forms" >
+    <form action="" method="post" enctype="multipart/form-data">
+
+      {% csrf_token %}
+
+      {{form}}
+
+      <button type="submit" class="btn btn-info">Güncelle</button>
+       <a href="/"><button type="submit" class="btn btn-primary">Geri Dön</button></a>
+  </form>
+   </div>
+</div>
+
+<script src="{% static 'script/classAddHandle.js' %}"></script>
+
+
+{% endblock icerik %}

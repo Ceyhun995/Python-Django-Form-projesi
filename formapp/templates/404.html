@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block icerik %}
+<div class="container">
+    <h5>Üzgünüz Böğle Bir Sayfa Bulunamadı</h5>
+    <a href="{% url 'ekle' %}" class="text-decoration-none">Geri Dön</a>
+    <a href="{% url 'exit' %}" class="text-danger text-decoration-none">Çıkış Yap</a>
+</div>
+{% endblock icerik %}
